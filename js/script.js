@@ -556,6 +556,17 @@ if (window.gsap && window.ScrollTrigger) {
         });
       });
 
+      // ---------- Contact page: hero entrance ----------
+      const contactHero = document.querySelector(".contact-hero");
+      if (contactHero) {
+        gsap.timeline({ delay: 0.1 })
+          .from(".contact-hero-bg", { autoAlpha: 0, scale: 1.08, duration: DRAMATIC + 0.4, ease: "power2.out", clearProps: "all" })
+          .from(".contact-back", { autoAlpha: 0, y: -10, duration: QUICK, clearProps: "all" }, "-=0.7")
+          .from(".contact-hero-inner .section-kicker", { autoAlpha: 0, y: 16, duration: QUICK, clearProps: "all" }, "-=0.5")
+          .from(".contact-email", { autoAlpha: 0, y: 26, duration: DRAMATIC, ease: "power3.out", clearProps: "all" }, "-=0.35")
+          .from(".contact-instagram", { autoAlpha: 0, y: 16, duration: STANDARD, clearProps: "all" }, "-=0.45");
+      }
+
       // ---------- Bottom blur: fades out as the page scrolls toward the footer ----------
       const bottomBlur = document.querySelector(".bottom-blur");
       if (bottomBlur) {
