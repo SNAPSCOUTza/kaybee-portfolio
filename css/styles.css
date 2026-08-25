@@ -654,6 +654,74 @@ sup { font-size: 0.5em; top: -0.6em; }
 .faq-item[open] .faq-toggle { transform: rotate(45deg); }
 .faq-item p { margin: 14px 0 0; opacity: 0.65; line-height: 1.5; font-size: 0.95rem; }
 
+/* ============ CONTACT PAGE ============ */
+.contact-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  padding: 24px;
+}
+.contact-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("../assets/img/ui/preloader-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.02);
+}
+.contact-hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,15,20,0.25) 0%, rgba(10,15,20,0.1) 35%, rgba(10,15,20,0.45) 100%);
+}
+.contact-back {
+  position: absolute;
+  top: clamp(20px, 4vw, 40px);
+  left: clamp(20px, 4vw, 40px);
+  z-index: 2;
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.35);
+}
+.contact-hero-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.contact-hero-inner .section-kicker {
+  color: #fff;
+  opacity: 0.85;
+}
+.contact-email {
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.6rem, 6vw, 4rem);
+  text-shadow: 0 4px 30px rgba(0,0,0,0.4);
+  word-break: break-word;
+  transition: opacity 0.2s ease;
+}
+.contact-email:hover { opacity: 0.8; }
+.contact-instagram {
+  color: #fff;
+  font-weight: 700;
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
+  opacity: 0.85;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.35);
+  transition: opacity 0.2s ease;
+}
+.contact-instagram:hover { opacity: 1; }
+
 /* ============ FOOTER ============ */
 .footer {
   position: relative;
