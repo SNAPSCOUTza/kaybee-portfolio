@@ -804,6 +804,9 @@ sup { font-size: 0.5em; top: -0.6em; }
 .footer-cta p { margin: 6px 0 0; font-size: 1.3rem; font-weight: 600; max-width: 26ch; }
 .footer .btn-solid { background: var(--paper); color: var(--ink); }
 .footer .btn-solid:hover { background: #fff; }
+.footer-cta-buttons { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.footer .btn-outline { border-color: rgba(245,243,238,0.55); color: var(--paper); }
+.footer .btn-outline:hover { background: var(--paper); color: var(--ink); }
 
 .footer-bottom {
   position: relative;
