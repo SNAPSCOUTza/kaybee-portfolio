@@ -114,8 +114,11 @@ setTimeout(forceScrollTop, 0);
   const countEl = preloader.querySelector(".preloader-count");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  const signalDone = () => window.dispatchEvent(new CustomEvent("preloader:done"));
+
   const finish = () => {
     preloader.style.animation = "none";
+    signalDone();
     if (window.gsap) {
       gsap.to(preloader, {
         autoAlpha: 0,
@@ -129,6 +132,7 @@ setTimeout(forceScrollTop, 0);
 
   if (!window.gsap) {
     // No GSAP available — don't trap visitors behind a stuck loader.
+    signalDone();
     preloader.remove();
     return;
   }
@@ -137,6 +141,7 @@ setTimeout(forceScrollTop, 0);
     wordEl.style.display = "none";
     countEl.style.opacity = 1;
     countEl.textContent = "100%";
+    signalDone();
     gsap.to(preloader, { autoAlpha: 0, duration: 0.3, delay: 0.2, onComplete: () => preloader.remove() });
   } else {
     const counter = { val: 0 };
@@ -269,7 +274,16 @@ if (window.gsap && window.ScrollTrigger) {
       const headlineRollDistance = headlineLineHeightPx * 3; // (DUPLICATES - 1)
 
       // ---------- Hero entrance choreography ----------
-      const heroTl = gsap.timeline({ delay: 0.15 });
+      const heroTl = gsap.timeline({ paused: true });
+
+      // Wait for the preloader to finish (or start right away if it's already gone)
+      // so this entrance is actually seen instead of playing out behind the overlay.
+      const playHeroTl = () => gsap.delayedCall(0.15, () => heroTl.play());
+      if (document.getElementById("preloader")) {
+        window.addEventListener("preloader:done", playHeroTl, { once: true });
+      } else {
+        playHeroTl();
+      }
 
       heroTl
         .from(".wordmark", { autoAlpha: 0, y: -14, duration: QUICK })
