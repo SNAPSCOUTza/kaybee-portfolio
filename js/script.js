@@ -8,6 +8,102 @@ window.addEventListener("pageshow", forceScrollTop);
 window.addEventListener("load", forceScrollTop);
 setTimeout(forceScrollTop, 0);
 
+// ---------- Text reveal on scroll: characters light up as the section scrolls through ----------
+(() => {
+  const roots = document.querySelectorAll(".text-reveal-scroll");
+  if (!roots.length) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const START_OFFSET = 90; // % of viewport height where the reveal begins
+  const END_OFFSET = 30;   // % of viewport height where the reveal completes
+  const DIM_OPACITY = 0.2; // resting opacity of not-yet-revealed characters
+
+  roots.forEach((root) => {
+    root.style.visibility = "hidden";
+    const segments = [];
+
+    const wrap = (el) => {
+      Array.from(el.childNodes).forEach((node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const text = node.textContent || "";
+          if (!text.length) return;
+          const frag = document.createDocumentFragment();
+          for (const char of text) {
+            if (/\s/.test(char)) {
+              frag.appendChild(document.createTextNode(char));
+            } else {
+              const span = document.createElement("span");
+              span.textContent = char;
+              span.style.display = "inline";
+              span.style.opacity = String(DIM_OPACITY);
+              span.style.willChange = "opacity";
+              frag.appendChild(span);
+              segments.push(span);
+            }
+          }
+          node.parentNode.replaceChild(frag, node);
+          return;
+        }
+        if (node.nodeType !== Node.ELEMENT_NODE) return;
+        if (node.tagName === "BR") {
+          node.style.display = "inline";
+          node.style.opacity = String(DIM_OPACITY);
+          node.style.willChange = "opacity";
+          segments.push(node);
+          return;
+        }
+        wrap(node);
+      });
+    };
+    wrap(root);
+    root.style.visibility = "visible";
+    if (!segments.length) return;
+
+    let isVisible = false;
+    let rafId = 0;
+
+    const computeReveal = () => {
+      if (!isVisible) return;
+      const rect = root.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const startPx = vh * (START_OFFSET / 100);
+      const endPx = vh * (END_OFFSET / 100);
+      const totalRange = rect.height + (startPx - endPx);
+      const scrolled = startPx - rect.top;
+      const progress = Math.min(Math.max(scrolled / totalRange, 0), 1);
+      const total = segments.length;
+      const litCount = Math.floor(progress * total);
+      segments.forEach((seg, i) => {
+        if (i < litCount) {
+          seg.style.opacity = "1";
+        } else if (i === litCount) {
+          const frac = progress * total - litCount;
+          seg.style.opacity = String(DIM_OPACITY + frac * (1 - DIM_OPACITY));
+        } else {
+          seg.style.opacity = String(DIM_OPACITY);
+        }
+      });
+    };
+
+    const scheduleReveal = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(computeReveal);
+    };
+
+    new IntersectionObserver(
+      (entries) => {
+        isVisible = entries[0].isIntersecting;
+        if (isVisible) scheduleReveal();
+      },
+      { rootMargin: "200px 0px 200px 0px", threshold: 0 }
+    ).observe(root);
+
+    window.addEventListener("scroll", scheduleReveal, { passive: true });
+    window.addEventListener("resize", scheduleReveal, { passive: true });
+    scheduleReveal();
+  });
+})();
+
 // ---------- Preloader: counts up then reveals the site ----------
 (() => {
   const preloader = document.getElementById("preloader");
@@ -76,6 +172,22 @@ if (titleEl) {
   }, 3200);
 }
 
+// Services: dropdown detail on click, one open at a time
+document.querySelectorAll(".service-item").forEach((item) => {
+  const row = item.querySelector(".service-row");
+  row.addEventListener("click", () => {
+    const isOpen = item.classList.contains("is-open");
+    document.querySelectorAll(".service-item").forEach((other) => {
+      other.classList.remove("is-open");
+      other.querySelector(".service-row").setAttribute("aria-expanded", "false");
+    });
+    if (!isOpen) {
+      item.classList.add("is-open");
+      row.setAttribute("aria-expanded", "true");
+    }
+  });
+});
+
 // Keep only one FAQ item open at a time
 document.querySelectorAll(".faq-item").forEach((item) => {
   item.addEventListener("toggle", () => {
@@ -100,13 +212,75 @@ if (window.gsap && window.ScrollTrigger) {
       const STANDARD = reduceMotion ? 0.01 : 0.65;
       const DRAMATIC = reduceMotion ? 0.01 : 0.9;
 
+      // ---------- Headline: build rolling-text columns ----------
+      // Each character becomes a small clipped column holding several stacked
+      // copies of itself; animating the column reveals the same letter again
+      // but with a rolling blur-slide flourish. Sticky-note badges and <br>
+      // are left untouched so their own pop-in animation still works.
+      const headlineEl = document.querySelector(".headline");
+      const headlineRollColumns = [];
+      let headlineLineHeightPx = 0;
+      if (headlineEl) {
+        const cs = getComputedStyle(headlineEl);
+        const fontSizePx = parseFloat(cs.fontSize);
+        const lhRaw = cs.lineHeight;
+        headlineLineHeightPx =
+          lhRaw === "normal" ? fontSizePx * 1.2 : lhRaw.endsWith("px") ? parseFloat(lhRaw) : parseFloat(lhRaw) * fontSizePx;
+        const DUPLICATES = 4;
+
+        const wrapForRoll = (el) => {
+          Array.from(el.childNodes).forEach((node) => {
+            if (node.nodeType === Node.TEXT_NODE) {
+              const text = node.textContent || "";
+              if (!text.length) return;
+              const frag = document.createDocumentFragment();
+              for (const char of text) {
+                if (/\s/.test(char)) {
+                  frag.appendChild(document.createTextNode(char));
+                  continue;
+                }
+                const col = document.createElement("span");
+                col.className = "roll-col";
+                col.style.height = headlineLineHeightPx + "px";
+                const track = document.createElement("span");
+                track.className = "roll-track";
+                for (let i = 0; i < DUPLICATES; i++) {
+                  const c = document.createElement("span");
+                  c.className = "roll-char";
+                  c.style.height = headlineLineHeightPx + "px";
+                  c.textContent = char;
+                  track.appendChild(c);
+                }
+                col.appendChild(track);
+                frag.appendChild(col);
+                headlineRollColumns.push(track);
+              }
+              node.parentNode.replaceChild(frag, node);
+              return;
+            }
+            if (node.nodeType !== Node.ELEMENT_NODE) return;
+            if (node.tagName === "BR" || node.classList.contains("note")) return;
+            wrapForRoll(node);
+          });
+        };
+        wrapForRoll(headlineEl);
+        gsap.set(headlineRollColumns, { y: 0 });
+      }
+      const headlineRollDistance = headlineLineHeightPx * 3; // (DUPLICATES - 1)
+
       // ---------- Hero entrance choreography ----------
       const heroTl = gsap.timeline({ delay: 0.15 });
 
       heroTl
         .from(".wordmark", { autoAlpha: 0, y: -14, duration: QUICK })
         .from(".badge", { autoAlpha: 0, x: -28, duration: STANDARD, clearProps: "all" }, "-=0.2")
-        .from(".headline", { autoAlpha: 0, y: 44, duration: DRAMATIC }, "-=0.25")
+        .to(headlineRollColumns, {
+          keyframes: [
+            { y: -headlineRollDistance * 0.55, filter: "blur(6px)", duration: reduceMotion ? 0.005 : 0.32, ease: "power1.in" },
+            { y: -headlineRollDistance, filter: "blur(0px)", duration: reduceMotion ? 0.005 : 0.4, ease: "power2.out" }
+          ],
+          stagger: reduceMotion ? 0 : 0.026
+        }, "-=0.25")
         .from(
           [".note-illustration", ".note-3d"],
           {
@@ -335,6 +509,22 @@ if (window.gsap && window.ScrollTrigger) {
             overwrite: true
           })
       });
+
+      // ---------- FAQs visual: image frames in, then heading reveals ----------
+      const faqsVisual = document.querySelector(".faqs-visual");
+      if (faqsVisual) {
+        const faqsImg = faqsVisual.querySelector(".faqs-visual-img");
+        const faqsHeading = faqsVisual.querySelector(".faqs-heading");
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: faqsVisual,
+            start: "top 82%",
+            toggleActions: "play none none reverse"
+          }
+        })
+          .from(faqsImg, { autoAlpha: 0, scale: 1.12, duration: STANDARD + 0.35, ease: "power3.out", clearProps: "all" })
+          .from(faqsHeading, { autoAlpha: 0, y: 24, duration: DRAMATIC + 0.4, ease: "power2.out", clearProps: "all" }, "-=0.15");
+      }
 
       // ---------- FAQs: quick cascade ----------
       gsap.utils.toArray(".faq-item").forEach((item, i) => {

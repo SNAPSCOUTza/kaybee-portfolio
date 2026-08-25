@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=15">
+<link rel="stylesheet" href="css/styles.css?v=23">
 </head>
 <body>
 
@@ -367,51 +367,77 @@
   <h2 class="section-heading reveal">WHERE I<br>CAN HELP YOU</h2>
 
   <div class="services-list">
-    <div class="service-row">
-      <span class="service-name">Photography</span>
-      <span class="service-arrow">→</span>
+    <div class="service-item">
+      <button class="service-row" type="button" aria-expanded="false">
+        <span class="service-name">Photography</span>
+        <span class="service-arrow">→</span>
+      </button>
+      <div class="service-detail">
+        <div class="service-detail-inner">
+          <p>I like making things look good, but with purpose. From people and products to lifestyle and editorial, I use light, composition and a slightly obsessive eye for detail to create images that feel considered, memorable and anything but boring.</p>
+        </div>
+      </div>
     </div>
-    <div class="service-row">
-      <span class="service-name">Videography &amp; Reels</span>
-      <span class="service-arrow">→</span>
+    <div class="service-item">
+      <button class="service-row" type="button" aria-expanded="false">
+        <span class="service-name">Videography &amp; Reels</span>
+        <span class="service-arrow">→</span>
+      </button>
+      <div class="service-detail">
+        <div class="service-detail-inner">
+          <p>Whether it's a cinematic piece or a 30-second reel that needs to stop the scroll, I make video that moves. From the first idea to the final cut, colour grade and export, I can take it from "we should make something" to "okay&hellip; that's actually sick."</p>
+        </div>
+      </div>
     </div>
-    <div class="service-row">
-      <span class="service-name">Brand &amp; Campaign Content</span>
-      <span class="service-arrow">→</span>
+    <div class="service-item">
+      <button class="service-row" type="button" aria-expanded="false">
+        <span class="service-name">Brand &amp; Campaign Content</span>
+        <span class="service-arrow">→</span>
+      </button>
+      <div class="service-detail">
+        <div class="service-detail-inner">
+          <p>Good brands deserve more than pretty pictures. I turn ideas, identities and campaigns into visuals that feel cohesive and actually say something to viewers, making them more memorable. Photography, video, creative direction: whatever the idea needs, I'm here to help you put the vision into reality.</p>
+        </div>
+      </div>
     </div>
-    <div class="service-row">
-      <span class="service-name">Automotive Shoots</span>
-      <span class="service-arrow">→</span>
+    <div class="service-item">
+      <button class="service-row" type="button" aria-expanded="false">
+        <span class="service-name">Automotive Shoots</span>
+        <span class="service-arrow">→</span>
+      </button>
+      <div class="service-detail">
+        <div class="service-detail-inner">
+          <p>Cars have personalities. Some are elegant, some are aggressive, and some have absolutely no business being that loud. I use photography, cinematic video and creative composition to capture the details, attitude and character that make a car feel like more than just a car. I produce visuals that are far from the norm, incorporating different art styles to tell the brand's story rather than shoot another sales-facing ad, visuals that leave the viewer with an emotion.</p>
+        </div>
+      </div>
     </div>
-    <div class="service-row">
-      <span class="service-name">Event Coverage</span>
-      <span class="service-arrow">→</span>
+    <div class="service-item">
+      <button class="service-row" type="button" aria-expanded="false">
+        <span class="service-name">Event Coverage</span>
+        <span class="service-arrow">→</span>
+      </button>
+      <div class="service-detail">
+        <div class="service-detail-inner">
+          <p>I'm there for the big moments, and usually the ones happening three seconds before them. From brand launches and corporate events to private functions and chaotic celebrations, I capture the atmosphere, energy and little details that make the day worth remembering.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- REVIEWS -->
 <section id="reviews" class="section reviews">
-  <h2 class="section-heading reveal">CLIENTS LIKED<br>THE SHOTS</h2>
+  <h2 class="section-heading text-reveal-scroll">CLIENTS LIKED<br>THE SHOTS</h2>
 
-  <div class="reviews-grid">
-    <div class="review-card placeholder">
-      <span class="review-name">Add a client name</span>
-      <span class="review-role">Their role / company</span>
-      <p class="review-quote">"Drop a short client quote here once you've got one on record."</p>
-      <p class="review-body">Swap this whole card for a real testimonial — placeholder for now.</p>
-    </div>
-    <div class="review-card placeholder">
-      <span class="review-name">Add a client name</span>
-      <span class="review-role">Their role / company</span>
-      <p class="review-quote">"Drop a short client quote here once you've got one on record."</p>
-      <p class="review-body">Swap this whole card for a real testimonial — placeholder for now.</p>
-    </div>
-    <div class="review-card placeholder">
-      <span class="review-name">Add a client name</span>
-      <span class="review-role">Their role / company</span>
-      <p class="review-quote">"Drop a short client quote here once you've got one on record."</p>
-      <p class="review-body">Swap this whole card for a real testimonial — placeholder for now.</p>
+  <div class="reviews-grid single">
+    <div class="review-card consult-card">
+      <span class="review-name">So they stayed</span>
+      <p class="consult-text">I'm currently still consulting for all of these brands as a visual growth partner, working with each on a project-to-project basis — shaping their visual direction, shooting new campaigns, and helping their content stay sharp as their needs evolve. If you'd like to work together, we can set up a consultation. Feel free to get in touch.</p>
+      <span class="review-name consult-list-label">List of clients I still consult at the moment</span>
+      <ul class="consult-list">
+        <li>Pharoah Auto Group</li>
+        <li>Izimoto Auto Boutique</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -419,7 +445,10 @@
 <!-- FAQS -->
 <section id="faqs" class="section faqs">
   <div class="faqs-grid">
-    <h2 class="section-heading reveal">ANSWERS<br>BEFORE WE START</h2>
+    <div class="faqs-visual">
+      <img class="faqs-visual-img" src="assets/img/ui/faq-spiral.jpg" alt="" loading="lazy">
+      <h2 class="section-heading faqs-heading">ANSWERS<br>BEFORE WE START</h2>
+    </div>
 
     <div class="faq-list">
       <details class="faq-item" open>
@@ -448,6 +477,7 @@
 
 <!-- FOOTER / CONTACT -->
 <footer id="contact" class="footer">
+  <div class="footer-bg" aria-hidden="true"></div>
   <div class="footer-top reveal">
     <div class="footer-lead">
       <div class="footer-lead-text">
@@ -512,6 +542,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
-<script src="js/script.js?v=12"></script>
+<script src="js/script.js?v=22"></script>
 </body>
 </html>

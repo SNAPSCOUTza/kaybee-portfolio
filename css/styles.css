@@ -221,6 +221,13 @@ sup { font-size: 0.5em; top: -0.6em; }
   margin: 0;
   max-width: 18ch;
 }
+.roll-col {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+.roll-track { display: block; }
+.roll-char { display: block; will-change: transform, filter; }
 
 .note {
   position: relative;
@@ -530,18 +537,40 @@ sup { font-size: 0.5em; top: -0.6em; }
 
 /* ============ SERVICES ============ */
 .services-list { border-top: 1px solid var(--line); }
+.service-item { border-bottom: 1px solid var(--line); }
 .service-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
   padding: 26px 4px;
-  border-bottom: 1px solid var(--line);
+  border: none;
+  background: none;
+  font-family: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
   font-size: clamp(1.3rem, 3vw, 2rem);
   font-weight: 700;
   transition: padding-left 0.3s ease, opacity 0.3s ease;
 }
 .service-row:hover { padding-left: 14px; opacity: 0.6; }
-.service-arrow { font-size: 1.4rem; opacity: 0.4; }
+.service-arrow { font-size: 1.4rem; opacity: 0.4; transition: transform 0.35s ease; }
+.service-row[aria-expanded="true"] .service-arrow { transform: rotate(90deg); }
+.service-detail {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.service-item.is-open .service-detail { grid-template-rows: 1fr; }
+.service-detail-inner { overflow: hidden; }
+.service-detail-inner p {
+  margin: 0 0 26px;
+  padding-right: min(220px, 25%);
+  font-size: 1rem;
+  line-height: 1.65;
+  opacity: 0.7;
+}
 
 /* ============ REVIEWS ============ */
 .reviews-grid {
@@ -563,11 +592,68 @@ sup { font-size: 0.5em; top: -0.6em; }
 .review-quote { font-size: 1.05rem; font-weight: 600; line-height: 1.35; margin: 0 0 10px; }
 .review-body { font-size: 0.85rem; opacity: 0.6; line-height: 1.45; margin: 0; }
 
+.reviews-grid.single { grid-template-columns: 1fr; }
+.consult-card { padding: 44px 40px; }
+.consult-text {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  opacity: 0.75;
+  margin: 10px 0 30px;
+}
+.consult-list-label { margin-bottom: 0; }
+.consult-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 32px;
+}
+.consult-list li {
+  position: relative;
+  padding-left: 18px;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.consult-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+
 /* ============ FAQS ============ */
 .faqs-grid {
   display: grid;
   grid-template-columns: 1fr 1.3fr;
   gap: 60px;
+}
+.faqs-visual {
+  position: relative;
+  min-height: 480px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  padding: 40px;
+}
+.faqs-visual-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.faqs-heading {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: #fff;
+  text-shadow: 0 4px 24px rgba(0,0,0,0.4);
 }
 .faq-item {
   border-bottom: 1px solid var(--line);
@@ -602,7 +688,23 @@ sup { font-size: 0.5em; top: -0.6em; }
   border-radius: 32px 32px 0 0;
   overflow: hidden;
 }
+.footer-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("../assets/img/ui/footer-bg.jpg");
+  background-size: cover;
+  background-position: center 70%;
+}
+.footer-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,12,10,0.6) 0%, rgba(10,12,10,0.75) 55%, rgba(10,12,10,0.88) 100%);
+}
 .footer-top {
+  position: relative;
+  z-index: 1;
   max-width: var(--max);
   margin: 0 auto;
   padding: clamp(56px, 9vw, 120px) clamp(20px, 5vw, 64px) 60px;
@@ -659,6 +761,8 @@ sup { font-size: 0.5em; top: -0.6em; }
 .footer .btn-solid:hover { background: #fff; }
 
 .footer-bottom {
+  position: relative;
+  z-index: 1;
   max-width: var(--max);
   margin: 0 auto;
   display: flex;
@@ -679,6 +783,7 @@ sup { font-size: 0.5em; top: -0.6em; }
 /* ---- Logo marquee ---- */
 .logo-marquee {
   position: relative;
+  z-index: 1;
   overflow: hidden;
   border-top: 1px solid rgba(245,243,238,0.12);
   padding: 26px 0 110px;
@@ -773,7 +878,10 @@ sup { font-size: 0.5em; top: -0.6em; }
   .work-grid { grid-template-columns: repeat(2, 1fr); }
   .clients-grid { grid-template-columns: repeat(4, 1fr); }
   .reviews-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+  .reviews-grid.single { max-width: none; margin: 0; }
+  .consult-card { padding: 32px 24px; }
   .faqs-grid { grid-template-columns: 1fr; gap: 32px; }
+  .faqs-visual { min-height: 280px; padding: 28px; }
   .floating-card { display: none; }
   .badge { flex-direction: row-reverse; padding: 8px 8px 8px 20px; }
   .badge-text { align-items: flex-end; text-align: right; }
