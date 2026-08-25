@@ -275,7 +275,7 @@ sup { font-size: 0.5em; top: -0.6em; }
 .nb-purple { background: var(--accent-purple); color: var(--accent-purple); }
 .nb-blue { background: var(--accent-blue); color: var(--accent-blue); }
 
-.note-uiux { display: block; width: fit-content; margin: 18px auto 0; font-size: 0.95rem; }
+.note-uiux { display: block; width: fit-content; margin: 6px auto 0; font-size: 1.45rem; }
 
 .tagline {
   position: absolute;
