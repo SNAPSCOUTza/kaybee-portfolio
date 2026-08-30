@@ -961,7 +961,9 @@ sup { font-size: 0.5em; top: -0.6em; }
   .work-card { margin-top: 0 !important; transform: rotate(0deg) !important; }
   .stats { grid-template-columns: 1fr; }
   .work-head { flex-direction: column; align-items: flex-start; gap: 8px; }
-  .clients-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .section { padding-left: 24px; padding-right: 24px; }
+  .clients-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .logo-card { border-radius: 18px; padding: 22px; }
   .clients-head { flex-direction: column; align-items: flex-start; gap: 8px; }
   .footer-cta { flex-direction: column; align-items: flex-start; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
