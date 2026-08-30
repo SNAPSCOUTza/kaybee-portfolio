@@ -561,7 +561,8 @@ sup { font-size: 0.5em; top: -0.6em; }
   transition: padding-left 0.3s ease, opacity 0.3s ease;
 }
 .service-row:hover { padding-left: 14px; opacity: 0.6; }
-.service-arrow { font-size: 1.4rem; opacity: 0.4; transition: transform 0.35s ease; }
+.service-name { min-width: 0; }
+.service-arrow { font-size: 1.4rem; opacity: 0.4; transition: transform 0.35s ease; flex-shrink: 0; }
 .service-row[aria-expanded="true"] .service-arrow { transform: rotate(90deg); }
 .service-detail {
   display: grid;
