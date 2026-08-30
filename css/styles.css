@@ -807,6 +807,21 @@ sup { font-size: 0.5em; top: -0.6em; }
 .footer-cta-buttons { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .footer .btn-outline { border-color: rgba(245,243,238,0.55); color: var(--paper); }
 .footer .btn-outline:hover { background: var(--paper); color: var(--ink); }
+.btn-instagram { position: relative; }
+.btn-instagram .btn-text { transition: opacity 0.25s ease, transform 0.25s ease; }
+.btn-instagram .btn-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.btn-instagram .btn-icon svg { width: 20px; height: 20px; }
+.btn-instagram:hover .btn-text { opacity: 0; transform: scale(0.7); }
+.btn-instagram:hover .btn-icon { opacity: 1; transform: scale(1); }
 
 .footer-bottom {
   position: relative;
@@ -900,25 +915,13 @@ sup { font-size: 0.5em; top: -0.6em; }
   inset: 0;
   display: block;
 }
-.bottom-blur i:nth-child(1) {
-  backdrop-filter: blur(0.5px); -webkit-backdrop-filter: blur(0.5px);
-  mask-image: linear-gradient(to bottom, transparent 0%, transparent 15%, black 30%, black 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 15%, black 30%, black 100%);
+.bottom-blur i {
+  backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 55%, black 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 55%, black 100%);
 }
-.bottom-blur i:nth-child(2) {
-  backdrop-filter: blur(1.5px); -webkit-backdrop-filter: blur(1.5px);
-  mask-image: linear-gradient(to bottom, transparent 0%, transparent 35%, black 50%, black 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 35%, black 50%, black 100%);
-}
-.bottom-blur i:nth-child(3) {
-  backdrop-filter: blur(2.75px); -webkit-backdrop-filter: blur(2.75px);
-  mask-image: linear-gradient(to bottom, transparent 0%, transparent 55%, black 70%, black 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 55%, black 70%, black 100%);
-}
-.bottom-blur i:nth-child(4) {
-  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
-  mask-image: linear-gradient(to bottom, transparent 0%, transparent 75%, black 90%, black 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 75%, black 90%, black 100%);
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .bottom-blur { display: none; }
 }
 
 /* ============ TABLET (810 - 1439) ============ */
