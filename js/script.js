@@ -190,6 +190,12 @@ document.querySelectorAll(".service-item").forEach((item) => {
       item.classList.add("is-open");
       row.setAttribute("aria-expanded", "true");
     }
+    // .service-detail's height animates via a 0.45s grid-template-rows CSS
+    // transition; wait for it to settle so ScrollTrigger measures the final
+    // height instead of a mid-transition one.
+    if (window.ScrollTrigger) {
+      setTimeout(() => ScrollTrigger.refresh(), 500);
+    }
   });
 });
 
@@ -200,6 +206,10 @@ document.querySelectorAll(".faq-item").forEach((item) => {
       document.querySelectorAll(".faq-item").forEach((other) => {
         if (other !== item) other.open = false;
       });
+    }
+    // <details> changes layout synchronously, so refreshing immediately is safe.
+    if (window.ScrollTrigger) {
+      ScrollTrigger.refresh();
     }
   });
 });
@@ -286,7 +296,7 @@ if (window.gsap && window.ScrollTrigger) {
       }
 
       heroTl
-        .from(".wordmark", { autoAlpha: 0, y: -14, duration: QUICK })
+        .from(".menubar .wordmark", { autoAlpha: 0, y: -14, duration: QUICK })
         .from(".badge", { autoAlpha: 0, x: -28, duration: STANDARD, clearProps: "all" }, "-=0.2")
         .to(headlineRollColumns, {
           keyframes: [
