@@ -48,6 +48,14 @@ export function Hero() {
       const rollTracks = gsap.utils.toArray<HTMLElement>(".roll-track", headlineEl);
       gsap.set(rollTracks, { y: 0 });
 
+      // .roll-col clips to one line via overflow:hidden, but only actually
+      // clips if it has an explicit height - without one it just grows to
+      // fit all ROLL_DUPLICATES stacked copies, showing them all at once.
+      const heightPx = headlineLineHeightPx + "px";
+      headlineEl.querySelectorAll<HTMLElement>(".roll-col, .roll-char").forEach((el) => {
+        el.style.height = heightPx;
+      });
+
       const QUICK_D = reduceMotion ? 0.01 : QUICK;
       const STANDARD_D = reduceMotion ? 0.01 : STANDARD;
 
