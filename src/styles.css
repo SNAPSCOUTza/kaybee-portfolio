@@ -48,7 +48,7 @@ sup { font-size: 0.5em; top: -0.6em; }
 .preloader-bg {
   position: absolute;
   inset: 0;
-  background: url("../assets/img/ui/preloader-bg.jpg") center/cover no-repeat;
+  background: url("/assets/img/ui/preloader-bg.jpg") center/cover no-repeat;
 }
 .preloader-bg::after {
   content: "";
@@ -152,7 +152,7 @@ sup { font-size: 0.5em; top: -0.6em; }
 .hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url("../assets/img/ui/hero-bg-a.jpg");
+  background-image: url("/assets/img/ui/hero-bg-a.jpg");
   background-size: cover;
   background-position: center 65%;
   transform: scale(1.02);
@@ -677,7 +677,7 @@ sup { font-size: 0.5em; top: -0.6em; }
 .contact-hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url("../assets/img/ui/preloader-bg.jpg");
+  background-image: url("/assets/img/ui/preloader-bg.jpg");
   background-size: cover;
   background-position: center;
   transform: scale(1.02);
@@ -744,7 +744,7 @@ sup { font-size: 0.5em; top: -0.6em; }
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-image: url("../assets/img/ui/footer-bg.jpg");
+  background-image: url("/assets/img/ui/footer-bg.jpg");
   background-size: cover;
   background-position: center 70%;
 }
