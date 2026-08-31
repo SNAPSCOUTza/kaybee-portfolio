@@ -37,8 +37,8 @@ export function Clients() {
 
       <div className="clients-grid">
         {clientLogos.map((logo) => (
-          <div className="logo-card" key={logo.id}>
-            <img className={logo.large ? "logo-img--lg" : undefined} src={logo.image} alt={logo.name} loading="lazy" />
+          <div className={`logo-card${logo.large ? " logo-card--lg" : ""}`} key={logo.id}>
+            <img src={logo.image} alt={logo.name} loading="lazy" />
           </div>
         ))}
       </div>
