@@ -184,6 +184,7 @@ sup { font-size: 0.5em; top: -0.6em; }
   justify-content: center;
   align-items: center;
   padding: 40px clamp(16px, 4vw, 48px) 0;
+  --note-size: clamp(0.884rem, 2.516vw, 2.176rem);
 }
 
 .badge {
@@ -219,12 +220,13 @@ sup { font-size: 0.5em; top: -0.6em; }
 .headline {
   text-align: center;
   font-size: clamp(2.6rem, 7.4vw, 6.4rem);
-  line-height: 0.98;
+  line-height: 0.86;
   font-weight: 900;
   letter-spacing: -0.03em;
   text-transform: uppercase;
   margin: 0;
   max-width: 18ch;
+  overflow-wrap: break-word;
 }
 .roll-col {
   display: inline-block;
@@ -245,12 +247,12 @@ sup { font-size: 0.5em; top: -0.6em; }
   font-weight: 400;
   text-transform: none;
   letter-spacing: 0;
-  font-size: 0.34em;
-  padding: 0.36em 0.8em 0.36em 0.5em;
+  font-size: var(--note-size, 0.34em);
+  padding: 0.22em 0.8em 0.22em 0.5em;
   border-radius: 4px;
   box-shadow: 0 10px 24px rgba(0,0,0,0.25);
   vertical-align: middle;
-  margin: 0 0.22em;
+  margin: -0.1em 0.22em;
 }
 .note::after {
   content: "";
@@ -280,7 +282,7 @@ sup { font-size: 0.5em; top: -0.6em; }
 .nb-purple { background: var(--accent-purple); color: var(--accent-purple); }
 .nb-blue { background: var(--accent-blue); color: var(--accent-blue); }
 
-.note-uiux { display: block; width: fit-content; margin: 6px auto 0; font-size: 1.45rem; }
+.note-uiux { display: block; width: fit-content; margin: 6px auto 0; }
 
 .tagline {
   position: absolute;
@@ -297,11 +299,13 @@ sup { font-size: 0.5em; top: -0.6em; }
   font-size: 1.15rem;
   font-weight: 700;
   line-height: 1.35;
+  overflow-wrap: break-word;
 }
 
 .dock {
   position: fixed;
   bottom: clamp(16px, 3.5vh, 28px);
+  bottom: clamp(16px, 3.5dvh, 28px);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -960,15 +964,13 @@ sup { font-size: 0.5em; top: -0.6em; }
 @media (max-width: 809px) {
   .footer-lead { flex-direction: column-reverse; align-items: center; text-align: center; gap: 12px; }
   .footer-mac { width: 110px; margin-top: 0; }
-  .headline { font-size: clamp(2.1rem, 9vw, 3rem); max-width: 14ch; line-height: 1.3; }
-  .note { font-size: 0.32em; }
-  .note-illustration, .note-3d { display: block; width: fit-content; transform: rotate(0deg); margin: 6px 0; }
+  .headline { font-size: clamp(2.1rem, 9vw, 3rem); max-width: 14ch; line-height: 1.18; }
   .badge { position: static; margin: 0 auto 32px; flex-direction: row; width: auto; max-width: 88vw; }
   .badge-text { align-items: flex-start; text-align: left; }
-  .badge-name { white-space: normal; }
-  .hero-inner { padding-top: 90px; }
-  .tagline { position: static; margin: 28px auto 0; text-align: center; justify-content: center; max-width: 260px; }
-  .note-uiux { margin-top: 14px; }
+  .badge-name { white-space: normal; overflow-wrap: break-word; }
+  .hero-inner { padding-top: 90px; --note-size: clamp(0.6rem, 2.6vw, 0.85rem); }
+  .tagline { position: static; margin: 20px auto 0; text-align: center; justify-content: center; max-width: 260px; }
+  .note-uiux { margin-top: 8px; }
   .dock { gap: 8px; padding: 7px; border-radius: 20px; }
   .dock-icon { width: 40px; height: 40px; }
   .dock-icon-frame { border-radius: 10px; }
