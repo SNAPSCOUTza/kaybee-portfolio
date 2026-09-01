@@ -968,7 +968,7 @@ sup { font-size: 0.5em; top: -0.6em; }
   .badge-text { align-items: flex-start; text-align: left; }
   .badge-name { white-space: normal; overflow-wrap: break-word; }
   .hero-inner { padding-top: 90px; --note-size: clamp(0.6rem, 2.6vw, 0.85rem); }
-  .tagline { position: static; margin: 34px auto 0; text-align: center; justify-content: center; max-width: 260px; }
+  .tagline { position: static; margin: 51px auto 0; text-align: center; justify-content: center; max-width: 260px; }
   .note-uiux { margin-top: -10px; }
   .dock { gap: 8px; padding: 7px; border-radius: 20px; }
   .dock-icon { width: 40px; height: 40px; }
