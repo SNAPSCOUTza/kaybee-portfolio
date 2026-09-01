@@ -183,7 +183,6 @@ export function Hero() {
         </span>
 
         <div className="tagline">
-          <span className="tagline-dash">—</span>
           <p>
             Not just visuals.
             <br />
