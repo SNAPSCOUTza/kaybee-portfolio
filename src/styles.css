@@ -282,7 +282,7 @@ sup { font-size: 0.5em; top: -0.6em; }
 .nb-purple { background: var(--accent-purple); color: var(--accent-purple); }
 .nb-blue { background: var(--accent-blue); color: var(--accent-blue); }
 
-.note-uiux { display: block; width: fit-content; margin: 6px auto 0; }
+.note-uiux { display: block; width: fit-content; margin: -8px auto 0; }
 
 .tagline {
   position: absolute;
@@ -970,7 +970,7 @@ sup { font-size: 0.5em; top: -0.6em; }
   .badge-name { white-space: normal; overflow-wrap: break-word; }
   .hero-inner { padding-top: 90px; --note-size: clamp(0.6rem, 2.6vw, 0.85rem); }
   .tagline { position: static; margin: 20px auto 0; text-align: center; justify-content: center; max-width: 260px; }
-  .note-uiux { margin-top: 8px; }
+  .note-uiux { margin-top: -10px; }
   .dock { gap: 8px; padding: 7px; border-radius: 20px; }
   .dock-icon { width: 40px; height: 40px; }
   .dock-icon-frame { border-radius: 10px; }
